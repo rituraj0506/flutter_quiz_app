@@ -1,7 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class Intropage extends StatelessWidget {
-  const Intropage({super.key});
+  // accept fun as an argument and indirectly call the fun
+  const Intropage(this.StartQuiz, {super.key});
+
+  final void Function() StartQuiz;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +24,14 @@ class Intropage extends StatelessWidget {
             height: 80,
           ),
           Text(
-            "Learn flutter the fun Way!",
+            "Learn flutter the fun Way!", 
             style: TextStyle(color: Colors.white, fontSize: 24),
           ),
           SizedBox(
             height: 30,
           ),
           OutlinedButton.icon(
-            onPressed: () {},
+            onPressed: StartQuiz,
             label: Text(
               "Start Quiz",
               style: TextStyle(color: Colors.white),
