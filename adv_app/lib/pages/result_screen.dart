@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:adv_app/data/questions.dart';
+import 'package:adv_app/pages/question_summary.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -24,17 +25,28 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final numTotalQuestions = questions.length;
+    final numCorrectQuestions = summaryData.where(
+      (data) {
+        return data['user_answer'] == data['correct_answer'];
+      },
+    ).length; // gives amount of item list is kept in filter list
     return SizedBox(
       width: double.infinity,
-      child: Container(
+      child:
+          //scrollDirection: Axis.vertical,
+
+          Container(
         margin: EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("You answered X Out Of Y question Correctly"),
+            Text(
+                "You answered $numCorrectQuestions Out Of $numTotalQuestions question Correctly"),
             SizedBox(height: 30),
             // now scrollable list for ques ans and correct ans
-            Text('List of answer and questions.....'),
+            QuestionSummary(summaryData),
             SizedBox(height: 30),
             TextButton(
               onPressed: () {},
@@ -43,6 +55,8 @@ class ResultScreen extends StatelessWidget {
           ],
         ),
       ),
+        
+      
     );
   }
 }
